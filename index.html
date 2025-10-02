@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AM Process Navigator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="background-grid" aria-hidden="true"></div>
+  <main class="app-shell">
+    <header class="app-header">
+      <div>
+        <h1>AM Process Navigator</h1>
+        <p>Combine fundamental requirements to reveal compatible additive manufacturing processes.</p>
+      </div>
+      <button id="resetButton" class="reset-btn" type="button">Reset Selections</button>
+    </header>
+
+    <div class="split-layout">
+      <section class="filters-pane" aria-label="Process traits">
+        <section id="filters" class="filters" aria-label="Filter categories"></section>
+      </section>
+
+      <section class="results-section" aria-label="Processes and variants">
+        <div class="results-header">
+          <h2 class="section-title">Processes</h2>
+          <p class="results-hint">Hover or focus a card to review detailed traits. Variants stay visible and highlight when compatible.</p>
+        </div>
+        <div id="processResults" class="results"></div>
+        <p id="emptyMessage" class="empty-message hidden">No processes or variants match this combination yet. Adjust or reset to explore alternatives.</p>
+      </section>
+    </div>
+  </main>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,288 @@
+{
+  "categories": [
+    {
+      "id": "material_placement",
+      "label": "Material Placement",
+      "options": [
+        {"id": "direct_placement", "label": "Direct Placement"},
+        {"id": "selective_transformation", "label": "Selective Transformation"}
+      ]
+    },
+    {
+      "id": "forming_mechanism",
+      "label": "Forming Mechanism",
+      "options": [
+        {"id": "uv_chemical_curing", "label": "UV/Chemical Curing"},
+        {"id": "heat_fusing", "label": "Heat Fusing"},
+        {"id": "glue_binding", "label": "Glue/Binding"}
+      ]
+    },
+    {
+      "id": "melting_method",
+      "label": "Melting Method",
+      "options": [
+        {"id": "laser_electron_beam", "label": "Laser/Electron Beam"},
+        {"id": "conduction", "label": "Conduction"},
+        {"id": "arc_plasma", "label": "Arc Plasma"},
+        {"id": "friction", "label": "Friction"}
+      ]
+    },
+    {
+      "id": "deposition_mode",
+      "label": "Deposition Mode",
+      "options": [
+        {"id": "continuous_laid_filament", "label": "Continuous Laid Filament"},
+        {"id": "droplets", "label": "Droplets"},
+        {"id": "sheet_lamination", "label": "Sheets"}
+      ]
+    },
+    {
+      "id": "feedstock_form",
+      "label": "Feedstock Form",
+      "options": [
+        {"id": "filament_wire", "label": "Filament / Wire"},
+        {"id": "powder", "label": "Powder"},
+        {"id": "liquid", "label": "Liquid"},
+        {"id": "sheet", "label": "Sheet"}
+      ]
+    },
+    {
+      "id": "phase_transition_scope",
+      "label": "Phase Transition Scope",
+      "options": [
+        {"id": "local_phase_transition", "label": "Local Phase Transition"},
+        {"id": "full_layer_phase_transition", "label": "Full-layer Phase Transition"}
+      ]
+    }
+  ],
+  "processes": [
+    {
+      "id": "ME",
+      "shortLabel": "ME",
+      "label": "Material Extrusion",
+      "compatibility": {
+        "material_placement": ["direct_placement"],
+        "forming_mechanism": ["heat_fusing"],
+        "deposition_mode": ["continuous_laid_filament"],
+        "feedstock_form": ["filament_wire"],
+        "phase_transition_scope": ["local_phase_transition"]
+      },
+      "variants": [
+        {
+          "id": "ME-molten",
+          "shortLabel": "ME-molten",
+          "label": "Material Extrusion – Molten Thermoplastic",
+          "summary": "Heated nozzle extruding thermoplastic filament.",
+          "refinements": {
+            "melting_method": ["conduction"]
+          }
+        },
+        {
+          "id": "ME-semi_solid",
+          "shortLabel": "ME-semi",
+          "label": "Material Extrusion – Pastes & Semi-solid",
+          "summary": "Direct ink writing of viscous pastes or slurries.",
+          "refinements": {
+            "forming_mechanism": ["glue_binding"],
+            "feedstock_form": ["liquid"]
+          }
+        },
+        {
+          "id": "ME-uv_cure",
+          "shortLabel": "ME-UV",
+          "label": "Material Extrusion – UV/Chemical Curing",
+          "summary": "Extruded photopolymer cured with UV immediately after deposition.",
+          "refinements": {
+            "forming_mechanism": ["uv_chemical_curing"],
+            "feedstock_form": ["liquid"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "MJ",
+      "shortLabel": "MJ",
+      "label": "Material Jetting",
+      "compatibility": {
+        "material_placement": ["direct_placement"],
+        "forming_mechanism": ["uv_chemical_curing", "heat_fusing"],
+        "deposition_mode": ["droplets"],
+        "feedstock_form": ["liquid"],
+        "phase_transition_scope": ["local_phase_transition"]
+      },
+      "variants": [
+        {
+          "id": "MJ-photopolymer",
+          "shortLabel": "MJ-photo",
+          "label": "Material Jetting – Photopolymers",
+          "summary": "UV-cured photopolymer droplets (PolyJet/Microjet).",
+          "refinements": {
+            "forming_mechanism": ["uv_chemical_curing"]
+          }
+        },
+        {
+          "id": "MJ-wax",
+          "shortLabel": "MJ-wax",
+          "label": "Material Jetting – Wax",
+          "summary": "Heated wax droplets solidify on contact; often used for casting patterns.",
+          "refinements": {
+            "forming_mechanism": ["heat_fusing"],
+            "melting_method": ["conduction"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "DED",
+      "shortLabel": "DED",
+      "label": "Directed Energy Deposition",
+      "compatibility": {
+        "material_placement": ["direct_placement"],
+        "forming_mechanism": ["heat_fusing"],
+        "deposition_mode": ["continuous_laid_filament"],
+        "feedstock_form": ["powder", "filament_wire"],
+        "phase_transition_scope": ["local_phase_transition"]
+      },
+      "variants": [
+        {
+          "id": "DED-laser_powder",
+          "shortLabel": "DED-powder",
+          "label": "DED – Powder Blown (Laser/EB)",
+          "summary": "Powder stream blown into a melt pool created by focused energy.",
+          "refinements": {
+            "feedstock_form": ["powder"],
+            "melting_method": ["laser_electron_beam"]
+          }
+        },
+        {
+          "id": "DED-wire_arc",
+          "shortLabel": "DED-wire",
+          "label": "DED – Wire Feed (LMD/WAAM)",
+          "summary": "Wire feed melted by laser, arc, or electron beam.",
+          "refinements": {
+            "feedstock_form": ["filament_wire"],
+            "melting_method": ["arc_plasma"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "VP",
+      "shortLabel": "VP",
+      "label": "Vat Photopolymerization",
+      "compatibility": {
+        "material_placement": ["selective_transformation"],
+        "forming_mechanism": ["uv_chemical_curing"],
+        "feedstock_form": ["liquid"],
+        "phase_transition_scope": ["local_phase_transition"]
+      },
+      "variants": [
+        {
+          "id": "VP-point_scan",
+          "shortLabel": "VP-scan",
+          "label": "Vat Photopolymerization – Point Scan",
+          "summary": "Laser-scanned vat photopolymerization (SLA)."
+        },
+        {
+          "id": "VP-planar_exposure",
+          "shortLabel": "VP-planar",
+          "label": "Vat Photopolymerization – Planar Exposure",
+          "summary": "Mask or projector-based 2D layer exposure (DLP/CLIP).",
+          "refinements": {
+            "phase_transition_scope": ["full_layer_phase_transition"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "BJ",
+      "shortLabel": "BJ",
+      "label": "Binder Jetting",
+      "compatibility": {
+        "material_placement": ["selective_transformation"],
+        "forming_mechanism": ["glue_binding"],
+        "deposition_mode": ["droplets"],
+        "feedstock_form": ["powder"],
+        "phase_transition_scope": ["local_phase_transition"]
+      },
+      "variants": [
+        {
+          "id": "BJ-sand",
+          "shortLabel": "BJ-sand",
+          "label": "Binder Jetting – Sand/Plaster",
+          "summary": "Binder into sand or gypsum for molds and tooling."
+        },
+        {
+          "id": "BJ-metal",
+          "shortLabel": "BJ-metal",
+          "label": "Binder Jetting – Metal",
+          "summary": "Binder into metal powder with downstream sinter or infiltration."
+        }
+      ]
+    },
+    {
+      "id": "PBF",
+      "shortLabel": "PBF",
+      "label": "Powder Bed Fusion",
+      "compatibility": {
+        "material_placement": ["selective_transformation"],
+        "forming_mechanism": ["heat_fusing"],
+        "feedstock_form": ["powder"],
+        "phase_transition_scope": ["local_phase_transition"],
+        "transformation_mode": ["point_by_point"]
+      },
+      "variants": [
+        {
+          "id": "PBF-laser",
+          "shortLabel": "PBF-laser",
+          "label": "Powder Bed Fusion – Laser",
+          "summary": "Laser powder bed fusion (SLM/DMLS).",
+          "refinements": {
+            "melting_method": ["laser_electron_beam"]
+          }
+        },
+        {
+          "id": "PBF-electron",
+          "shortLabel": "PBF-EB",
+          "label": "Powder Bed Fusion – Electron Beam",
+          "summary": "Electron beam melting in vacuum.",
+          "refinements": {
+            "melting_method": ["laser_electron_beam"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "SL",
+      "shortLabel": "SL",
+      "label": "Sheet Lamination",
+      "compatibility": {
+        "material_placement": ["direct_placement"],
+        "forming_mechanism": ["glue_binding", "heat_fusing"],
+        "deposition_mode": ["sheet_lamination"],
+        "feedstock_form": ["sheet"],
+        "phase_transition_scope": ["full_layer_phase_transition"]
+      },
+      "variants": [
+        {
+          "id": "SL-adhesive_bonding",
+          "shortLabel": "SL-adhesive",
+          "label": "Sheet Lamination – Adhesive Bonding",
+          "summary": "Layered paper/polymer sheets bonded with adhesive.",
+          "refinements": {
+            "forming_mechanism": ["glue_binding"]
+          }
+        },
+        {
+          "id": "SL-ultrasonic_welding",
+          "shortLabel": "SL-ultrasonic",
+          "label": "Sheet Lamination – Ultrasonic Welding",
+          "summary": "Metal foils welded via ultrasonic energy (UAM).",
+          "refinements": {
+            "forming_mechanism": ["heat_fusing"]
+          }
+        }
+      ]
+    }
+  ]
+}
